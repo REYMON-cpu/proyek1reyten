@@ -1,0 +1,37 @@
+*.log
+.DS_Store
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+<<<<<<< HEAD
+/.fleet
+=======
+/.codex
+/.cursor/
+>>>>>>> 0de9869f023d5b330a53d5703a39cd5d0d380b2b
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+/node_modules
+/public/build
+<<<<<<< HEAD
+=======
+/public/fonts-manifest.dev.json
+>>>>>>> 0de9869f023d5b330a53d5703a39cd5d0d380b2b
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+<<<<<<< HEAD
+=======
+_ide_helper.php
+>>>>>>> 0de9869f023d5b330a53d5703a39cd5d0d380b2b
+Homestead.json
+Homestead.yaml
+Thumbs.db

@@ -74,9 +74,6 @@
                         <select name="jenis_hewan" required class="w-full px-4 py-3 rounded-2xl border border-gray-100 focus:outline-none focus:border-[#5E887E] focus:ring-2 focus:ring-[#5E887E]/20 bg-[#F4F7F6] text-sm font-medium transition-all">
                             <option value="kucing">Kucing</option>
                             <option value="anjing">Anjing</option>
-                            <option value="burung">Burung</option>
-                            <option value="kelinci">Kelinci</option>
-                            <option value="lainnya">Lainnya</option>
                         </select>
                     </div>
                 </div>

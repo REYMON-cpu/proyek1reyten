@@ -420,9 +420,10 @@ Route::post('/proses-pemesanan', function (Request $request) {
         'tanggal'     => $request->input('tanggal_kunjungan') ?? date('Y-m-d'),
         'alamat'      => $request->input('alamat', '-'),
         'status'      => 'Pending',
+        'waktu_pemesanan' => now(),
     ]);
 
-    return redirect('/dashboard')->with('success', 'Pemesanan berhasil dibuat! Dokter/Sitter akan segera menghubungi Anda.');
+    return redirect('/dashboard')->with('success', 'Pemesanan berhasil dibuat!');
 });
 
 

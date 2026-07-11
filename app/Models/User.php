@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'waktu_pemesanan', // Tambahkan kolom ini ke $fillable agar bisa diisi massal
     ];
 
     /**

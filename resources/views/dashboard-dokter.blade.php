@@ -178,7 +178,7 @@
               @forelse(collect($bookings)->take(3) as $booking)
               <div class="flex items-center gap-3 p-3 rounded-2xl bg-[#FAF9F6] border border-gray-50">
                 <div class="text-center min-w-[44px]">
-                  <div class="text-[10px] font-bold text-[#5E887E]">{{ \Carbon\Carbon::parse($booking->tanggal)->format('H:i') ?? '09:00' }}</div>
+                  <div class="text-[10px] font-bold text-[#5E887E]">{{ \Carbon\Carbon::parse($booking->waktu_pemesanan)->format('H:i') }}</div>
                 </div>
                 <div class="w-9 h-9 rounded-xl bg-[#5E887E]/10 flex items-center justify-center text-[#5E887E] text-xs font-bold">
                   {{ strtoupper(substr($booking->nama_pemilik ?? 'CU', 0, 2)) }}
@@ -252,7 +252,7 @@
               @if($booking->status === 'Pending') bg-amber-50/30 border-amber-50
               @elseif($booking->status === 'Disetujui' || $booking->status === 'Berlangsung') bg-blue-50/30 border-blue-50
               @else bg-[#FAF9F6]/60 @endif hover:bg-[#FAF9F6] transition-all">
-              <div class="text-xs font-bold text-[#5E887E] w-12">{{ \Carbon\Carbon::parse($booking->tanggal)->format('H:i') ?? '09:00' }}</div>
+              <div class="text-xs font-bold text-[#5E887E] w-12">{{ \Carbon\Carbon::parse($booking->waktu_pemesanan)->format('H:i') }}</div>
               <div class="w-10 h-10 rounded-xl bg-[#5E887E]/10 flex items-center justify-center text-[#5E887E] text-xs font-bold">
                 {{ strtoupper(substr($booking->nama_pemilik ?? 'CU', 0, 2)) }}
               </div>

@@ -32,7 +32,7 @@
     <main class="w-full max-w-3xl mx-auto px-6 py-10 flex-grow">
         <div class="mb-8">
             <h1 class="text-3xl font-extrabold tracking-tight">Formulir Pemesanan</h1>
-            <p class="text-[#5E887E] font-medium text-sm mt-1">Lengkapi data di bawah ini untuk mengonfirmasi kunjungan dokter ke lokasi Anda.</p>
+            <p class="text-[#5E887E] font-medium text-sm mt-1">Lengkapi data di bawah ini untuk mengonfirmasi kunjungan ke lokasi Anda.</p>
         </div>
 
         <!-- FORM UTAMA -->
@@ -49,7 +49,7 @@
                 </div>
                 <div>
                     <p class="text-xs opacity-80 font-bold uppercase tracking-widest">Anda Memesan Layanan:</p>
-                    <h3 class="text-xl font-bold italic">drh. {{ $dokter->nama ?? 'Nama Jasa Tidak Ditemukan' }}</h3>
+                    <h3 class="text-xl font-bold italic"> {{ $dokter->nama ?? 'Nama Jasa Tidak Ditemukan' }}</h3>
                     <p class="text-xs bg-white/20 px-3 py-1 rounded-full inline-block mt-1">
                         Biaya Kunjungan: Rp {{ isset($dokter->tarif) ? number_format($dokter->tarif, 0, ',', '.') : '0' }}
                     </p>
@@ -121,7 +121,7 @@
 
             <!-- Tombol Konfirmasi Pembayaran/Pemesanan -->
             <button type="submit" class="w-full bg-[#2D433E] hover:bg-[#5E887E] text-white font-bold py-4 rounded-[20px] shadow-lg hover:shadow-xl transition-all duration-300 active:scale-[0.99] text-center text-sm flex items-center justify-center gap-2">
-                <i class="fa-solid fa-circle-check"></i> Konfirmasi Pemesanan & Cari Dokter
+                <i class="fa-solid fa-circle-check"></i> Konfirmasi Pemesanan 
             </button>
         </form>
     </main>

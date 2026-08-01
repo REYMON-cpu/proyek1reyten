@@ -70,14 +70,20 @@
 
 
         <div class="md:w-1/2 p-10 md:p-14 flex flex-col justify-center bg-white anim-form">
-            <h2 class="text-3xl font-bold text-[#4A4A4A] mb-2">Buat Akun</h2>
-            <p class="text-gray-500 mb-8">Lengkapi data di bawah untuk bergabung dengan komunitas GoPet.</p>
+            <h2 class="text-3xl font-bold text-[#4A4A4A] mb-2">Selamat Datang</h2>
+            <p class="text-gray-500 mb-8">Masuk ke akun GoPet untuk melanjutkan.</p>
 
             @if(session('error'))
                 <div class="bg-red-100 text-red-700 p-3 rounded-xl mb-4 text-center font-bold">
                     {{ session('error') }}
                 </div>
             @endif
+
+            @if(session('success'))
+    <div class="bg-green-100 text-green-700 p-3 rounded-xl mb-4 text-center font-bold">
+        {{ session('success') }}
+    </div>
+@endif
 
            <form action="{{ route('login.proses') }}" method="POST" class="space-y-5">
                 @csrf
@@ -101,10 +107,17 @@
                 </div>
 
                 <div class="pt-4">
-                    <button type="submit" class="w-full bg-[#5E887E] hover:bg-[#4a6b63] text-white font-bold py-4 rounded-xl shadow-lg transition-all duration-300 active:scale-95">
-                        Masuk
-                    </button>
-                </div>
+    <button type="submit" class="w-full bg-[#5E887E] hover:bg-[#4a6b63] text-white font-bold py-4 rounded-xl shadow-lg transition-all duration-300 active:scale-95">
+        Masuk
+    </button>
+
+    <div class="text-right mt-3">
+        <a href="{{ url('/lupa-password') }}"
+           class="text-sm font-semibold text-[#5E887E] hover:underline">
+            Lupa Password?
+        </a>
+    </div>
+</div>
             </form>
 
             <p class="mt-6 text-center text-sm text-gray-500">

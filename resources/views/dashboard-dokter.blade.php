@@ -235,6 +235,133 @@
       </main>
     </div>
 
+    <!-- ===================== KELUHAN PENGGUNA ===================== -->
+<div class="bg-white rounded-3xl shadow-sm p-6 mt-6">
+    <div class="flex items-center justify-between mb-5">
+        <div>
+            <h3 class="text-xl font-bold text-gray-800">
+                Keluhan Pengguna
+            </h3>
+            <p class="text-sm text-gray-500">
+                Masukan dan evaluasi dari pemilik hewan.
+            </p>
+        </div>
+
+        <span class="px-3 py-1 bg-red-100 text-red-600 rounded-full text-sm font-semibold">
+            {{ $keluhan_list->count() }} Keluhan
+        </span>
+    </div>
+
+    @forelse($keluhan_list as $k)
+
+    <div class="border rounded-2xl p-5 mb-4">
+
+        <div class="flex justify-between items-center">
+
+            <div>
+
+                <h4 class="font-bold text-lg">
+                    {{ $k->customer_name }}
+                </h4>
+
+                <p class="text-gray-500">
+                    {{ $k->pet_name }}
+                </p>
+
+            </div>
+
+            <div>
+
+                @for($i=1;$i<=5;$i++)
+                    @if($i <= $k->rating)
+                        ⭐
+                    @else
+                        ☆
+                    @endif
+                @endfor
+
+            </div>
+
+        </div>
+
+        <div class="mt-4 pb-4 border-b">
+
+    <h5 class="font-semibold text-gray-800 mb-2">
+        Review
+    </h5>
+
+    <p class="text-gray-600 leading-7">
+        "{{ $k->experience }}"
+    </p>
+
+</div>
+
+       <div class="mt-5">
+
+    <div class="flex items-center mb-3">
+        <div class="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center">
+            <i class="fas fa-exclamation-circle text-red-500"></i>
+        </div>
+
+        <div class="ml-3">
+            <h5 class="font-semibold text-gray-800">
+                Keluhan Pengguna
+            </h5>
+
+            <p class="text-xs text-gray-400">
+                Masukan untuk peningkatan kualitas pelayanan
+            </p>
+        </div>
+    </div>
+
+    <div class="bg-gray-50 rounded-xl border border-gray-200 p-4">
+
+        @if($k->complaint)
+
+            <p class="text-gray-700 leading-7">
+                "{{ $k->complaint }}"
+            </p>
+
+        @else
+
+            <div class="flex items-center text-green-600">
+
+                <i class="fas fa-check-circle mr-2"></i>
+
+                Tidak ada keluhan dari pengguna.
+
+            </div>
+
+        @endif
+
+    </div>
+
+</div>
+
+    </div>
+
+    @empty
+
+    <div class="bg-green-50 border border-green-200 rounded-xl p-5 text-center">
+
+        <div class="text-4xl mb-2">
+            🎉
+        </div>
+
+        <h4 class="font-bold text-green-700">
+            Belum Ada Keluhan
+        </h4>
+
+        <p class="text-gray-500 mt-2">
+            Semua pengguna memberikan pelayanan yang baik.
+        </p>
+
+    </div>
+
+    @endforelse
+
+</div>
+
     <!-- ===== TAB: JADWAL KONSULTASI ===== -->
     <div id="tab-jadwal" class="tab-content">
       <main class="px-6 md:px-10 py-6">
@@ -316,6 +443,7 @@
                   <th class="pb-4">Pemilik</th>
                   <th class="pb-4">Diagnosis</th>
                   <th class="pb-4">Tindakan</th>
+                  <th class="pb-4">Catatan</th>
                   <th class="pb-4">Tanggal</th>
                   <th class="pb-4 text-center">Aksi</th>
                 </tr>
@@ -332,6 +460,7 @@
                     <span class="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-[10px] font-bold cell-r-diagnosis">{{ $rekam->diagnosis }}</span>
                   </td>
                   <td class="py-4 text-xs cell-r-tindakan">{{ $rekam->tindakan }}</td>
+                  <td class="py-4 text-xs text-gray-600 cell-r-catatan">{{ $rekam->catatan ?? '-' }}</td>
                   <td class="py-4 text-[10px] text-gray-400 cell-r-tanggal">{{ $rekam->tanggal }}</td>
                   <td class="py-4">
                     <div class="flex justify-center gap-2">
@@ -345,7 +474,7 @@
                 </tr>
                 @empty
                 <tr>
-                  <td colspan="6" class="text-center py-8 text-gray-400 text-xs font-semibold">Belum ada rekam medis yang ditambahkan.</td>
+                  <td colspan="7" class="text-center py-8 text-gray-400 text-xs font-semibold">Belum ada rekam medis yang ditambahkan.</td>
                 </tr>
                 @endforelse
               </tbody>
@@ -571,6 +700,18 @@
             <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Tindakan</label>
             <input type="text" id="inputRTindakan" name="tindakan" required class="w-full px-4 py-2.5 bg-[#FAF9F6] border border-gray-100 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#5E887E]">
           </div>
+          <div class="col-span-2">
+    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">
+        Catatan Dokter
+    </label>
+
+    <textarea
+        id="inputRCatatan"
+        name="catatan"
+        rows="4"
+        class="w-full px-4 py-3 bg-[#FAF9F6] border border-gray-100 rounded-xl text-xs font-semibold resize-none focus:outline-none focus:border-[#5E887E]"
+        placeholder="Masukkan catatan."></textarea>
+</div>
         </div>
         <div class="flex gap-3 pt-2">
           <button type="button" onclick="closeRekamModal()" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl text-xs font-bold hover:bg-gray-100">Batal</button>
@@ -755,6 +896,7 @@
       if (mode === 'create') {
         document.getElementById('rekamModalTitle').innerText = 'Tambah Rekam Medis';
         document.getElementById('formRekam').reset();
+        document.getElementById('inputRCatatan').value = '';
         document.getElementById('rekamId').value = '';
         if (document.getElementById('selectRBooking')) {
           document.getElementById('selectRBooking').selectedIndex = 0;
@@ -768,6 +910,7 @@
         document.getElementById('inputRPemilik').value  = row.querySelector('.cell-r-pemilik').innerText;
         document.getElementById('inputRDiagnosis').value= row.querySelector('.cell-r-diagnosis').innerText;
         document.getElementById('inputRTindakan').value = row.querySelector('.cell-r-tindakan').innerText;
+        document.getElementById('inputRCatatan').value = row.querySelector('.cell-r-catatan').innerText;
         document.getElementById('inputRTanggal').value  = row.querySelector('.cell-r-tanggal').innerText;
         if (document.getElementById('selectRBooking')) {
           document.getElementById('selectRBooking').selectedIndex = 0;

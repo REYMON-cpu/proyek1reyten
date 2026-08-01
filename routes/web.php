@@ -70,6 +70,59 @@ Route::post('/login/proses', function (Request $request) {
 
 
 // ==========================================
+// LUPA PASSWORD
+// ==========================================
+
+Route::get('/lupa-password', function () {
+    return view('lupa-password');
+});
+
+Route::post('/cek-email', function (Request $request) {
+
+    $request->validate([
+        'email' => 'required|email'
+    ]);
+
+    $user = DB::table('user')
+        ->where('email', $request->email)
+        ->first();
+
+    if (!$user) {
+        return back()->with('error', 'Email tidak ditemukan.');
+    }
+
+    return view('reset-password', [
+        'email' => $request->email
+    ]);
+
+})->name('cek.email');
+
+
+Route::post('/reset-password', function (Request $request) {
+
+    $request->validate([
+        'email' => 'required',
+        'password' => 'required|min:6',
+        'konfirmasi' => 'required'
+    ]);
+
+    if ($request->password != $request->konfirmasi) {
+        return back()->with('error', 'Konfirmasi password tidak sama.');
+    }
+
+    DB::table('user')
+        ->where('email', $request->email)
+        ->update([
+            'password' => $request->password
+        ]);
+
+    return redirect('/')
+        ->with('success', 'Password berhasil diubah.');
+
+})->name('reset.password');
+
+
+// ==========================================
 // FITUR DAFTAR AKUN (REGISTER)
 // ==========================================
 Route::get('/register', function () {
@@ -143,6 +196,7 @@ Route::get('/dashboard', function () {
 
     $hewan         = DB::table('hewan')->where('id_user', $id_user)->get();
     $layanan       = DB::table('layanan')->get();
+    $penyedia_jasa = DB::table('penyedia_jasa')->get();
     $daftar_rating = DB::table('review_ratings')->orderBy('id', 'desc')->get();
 
     // Ambil riwayat rekam medis (dokter) dan catatan harian (sitter) dari database
@@ -159,6 +213,7 @@ Route::get('/dashboard', function () {
         'daftar_layanan' => $layanan,
         'daftar_rating'  => $daftar_rating,
         'riwayat_medis'  => $riwayat_medis,
+        'penyedia_jasa'   => $penyedia_jasa,
     ]);
 });
 
@@ -365,11 +420,13 @@ Route::get('/api/chat-sitter/{id_pemilik}', function ($id_pemilik) {
 // ==========================================
 Route::post('/review/store', function (Request $request) {
     DB::table('review_ratings')->insert([
-        'customer_name' => $request->input('customer_name'),
-        'pet_name'      => $request->input('pet_name'),
-        'rating'        => $request->input('rating_value', 5),
-        'experience'    => $request->input('experience'),
-    ]);
+    'customer_name'    => $request->input('customer_name'),
+    'pet_name'         => $request->input('pet_name'),
+    'penyedia_jasa_id' => $request->input('penyedia_jasa_id'),
+    'rating'           => $request->input('rating_value', 5),
+    'experience'       => $request->input('experience'),
+    'complaint'        => $request->input('complaint'),
+]);
 
     return back()->with('success', 'Rating berhasil disimpan!');
 })->name('review.store');
@@ -518,6 +575,20 @@ Route::get('/dashboard-dokter', function () {
             ->get();
     }
 
+    $keluhan_list = collect();
+
+if ($provider) {
+    $keluhan_list = DB::table('review_ratings')
+        ->join('penyedia_jasa', 'review_ratings.penyedia_jasa_id', '=', 'penyedia_jasa.id_penyedia')
+        ->where('review_ratings.penyedia_jasa_id', $provider->id_penyedia)
+        ->select(
+            'review_ratings.*',
+            'penyedia_jasa.nama as nama_penyedia'
+        )
+        ->orderBy('review_ratings.id', 'desc')
+        ->get();
+}
+
     $konsultasi_hari_ini = 0;
     $menunggu_konfirmasi = 0;
     $total_hewan_ditangani = 0;
@@ -544,6 +615,7 @@ Route::get('/dashboard-dokter', function () {
         'bookings'              => $bookings,
         'chat_list'             => $chat_list,
         'rekam_list'            => $rekam_list,
+        'keluhan_list'          => $keluhan_list,
         'konsultasi_hari_ini'   => $konsultasi_hari_ini,
         'menunggu_konfirmasi'   => $menunggu_konfirmasi,
         'total_hewan_ditangani' => $total_hewan_ditangani,
@@ -771,6 +843,18 @@ Route::get('/dashboard-sitter', function () {
             ->get();
     }
 
+    // ==========================================
+// KELUHAN PENGGUNA
+// ==========================================
+$keluhan_list = collect();
+
+if ($provider) {
+    $keluhan_list = DB::table('review_ratings')
+        ->where('penyedia_jasa_id', $provider->id_penyedia)
+        ->orderBy('id', 'desc')
+        ->get();
+}
+
     $penitipan_hari_ini = 0;
     $menunggu_konfirmasi = 0;
     $total_hewan_diasuh = 0;
@@ -797,6 +881,7 @@ Route::get('/dashboard-sitter', function () {
         'bookings'            => $bookings,
         'chat_list'           => $chat_list,
         'catatan_list'        => $catatan_list,
+        'keluhan_list'        => $keluhan_list,
         'penitipan_hari_ini'  => $penitipan_hari_ini,
         'menunggu_konfirmasi' => $menunggu_konfirmasi,
         'total_hewan_diasuh'  => $total_hewan_diasuh,

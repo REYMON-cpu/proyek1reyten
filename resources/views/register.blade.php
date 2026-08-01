@@ -56,7 +56,6 @@
                     <option value="Pemilik Hewan">Pemilik Hewan</option>
                     <option value="Penyedia Jasa (Dokter)">Penyedia Jasa (Dokter)</option>
                     <option value="Penyedia Jasa (Pet Sitter)">Penyedia Jasa (Pet Sitter)</option>
-                    <option value="Admin">Admin</option>
                 </select>
             </div>
 

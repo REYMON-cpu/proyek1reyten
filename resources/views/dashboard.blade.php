@@ -55,7 +55,7 @@
             </div>
 
             <div class="hidden lg:flex gap-8 font-bold text-[13px] uppercase tracking-[0.2em] text-white/80">
-                <a href="#" class="hover:text-white transition-colors">Beranda</a>
+                <a href="#" class="hover:text-white transition-colors">Home</a>
                 <a href="#penyedia-layanan" class="hover:text-white transition-colors">Layanan</a>
                 <a href="javascript:void(0)" onclick="toggleNotificationDropdown(event)" class="hover:text-white transition-colors">Riwayat Medis</a>
                 <a href="#tentang-kami" class="hover:text-white transition-colors">Tentang Kami</a>
@@ -373,6 +373,26 @@
                                     <label class="text-xs font-bold uppercase tracking-wider text-gray-500 ml-2">Nama & Jenis Anabul</label>
                                     <input type="text" name="pet_name" required placeholder="Mochi (Kucing)" class="w-full bg-[#F8FBF0] border-0 rounded-2xl py-4 px-6 focus:ring-2 focus:ring-[#D9B08C] transition-all outline-none">
                                 </div>
+                                
+                                <div>
+    <label class="text-xs font-bold uppercase tracking-wider text-gray-500 ml-2">
+        Penyedia Jasa
+    </label>
+
+    <select name="penyedia_jasa_id"
+        required
+        class="w-full bg-[#F8FBF0] border-0 rounded-2xl py-4 px-6 focus:ring-2 focus:ring-[#D9B08C] transition-all outline-none">
+
+        <option value="">-- Pilih Penyedia Jasa --</option>
+
+        @foreach($penyedia_jasa as $pj)
+            <option value="{{ $pj->id_penyedia}}">
+                {{ $pj->nama }} - {{ ucfirst($pj->jenis) }}
+            </option>
+        @endforeach
+
+    </select>
+</div>
 
                                 <div>
                                     <label class="text-xs font-bold uppercase tracking-wider text-gray-500 ml-2">Rating Kepuasan</label>
@@ -398,6 +418,23 @@
                                     <label class="text-xs font-bold uppercase tracking-wider text-gray-500 ml-2">Cerita Pengalaman</label>
                                     <textarea name="experience" rows="4" required placeholder="Gopet keren banget..." class="w-full bg-[#F8FBF0] border-0 rounded-3xl py-4 px-6 focus:ring-2 focus:ring-[#D9B08C] transition-all outline-none"></textarea>
                                 </div>
+
+                                <div>
+    <label class="text-xs font-bold uppercase tracking-wider text-gray-500 ml-2">
+        Keluhan untuk Penyedia Jasa
+        <span class="text-gray-400 normal-case">(Opsional)</span>
+    </label>
+
+    <textarea
+        name="complaint"
+        rows="3"
+        placeholder="Tuliskan apabila terdapat keluhan mengenai pelayanan dokter atau pet sitter..."
+        class="w-full bg-[#F8FBF0] border-0 rounded-3xl py-4 px-6 focus:ring-2 focus:ring-red-300 transition-all outline-none"></textarea>
+
+    <p class="text-xs text-gray-500 mt-2 px-2">
+        Keluhan ini hanya akan dikirim kepada penyedia jasa dan admin sebagai bahan evaluasi, tidak akan ditampilkan sebagai ulasan publik.
+    </p>
+</div>
 
                                 <button type="submit" class="w-full py-4 bg-[#2D433E] text-white font-bold rounded-2xl hover:bg-[#D9B08C] hover:text-[#2D433E] transition-all shadow-lg shadow-[#2D433E]/10">
                                     Kirim Review

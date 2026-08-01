@@ -234,6 +234,127 @@
       </main>
     </div>
 
+    <div class="bg-white rounded-3xl shadow-sm p-6 mt-6">
+
+    <div class="flex justify-between items-center mb-5">
+        <div>
+            <h3 class="text-xl font-bold">
+                Keluhan Pengguna
+            </h3>
+
+            <p class="text-sm text-gray-500">
+                Masukan dari pemilik hewan mengenai pelayanan Anda.
+            </p>
+        </div>
+
+        <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm">
+            {{ $keluhan_list->count() }} Keluhan
+        </span>
+    </div>
+
+    @forelse($keluhan_list as $k)
+
+    <div class="border rounded-2xl p-5 mb-4">
+
+        <div class="flex justify-between items-center">
+
+            <div>
+                <h4 class="font-bold text-lg">
+                    {{ $k->customer_name }}
+                </h4>
+
+                <p class="text-gray-500">
+                    {{ $k->pet_name }}
+                </p>
+            </div>
+
+            <div>
+                @for($i=1;$i<=5;$i++)
+                    @if($i <= $k->rating)
+                        ⭐
+                    @else
+                        ☆
+                    @endif
+                @endfor
+            </div>
+
+        </div>
+
+        <div class="mt-4 pb-4 border-b">
+            <h5 class="font-semibold text-gray-700">
+                Review
+            </h5>
+
+            <p class="text-gray-600 mt-2">
+                {{ $k->experience }}
+            </p>
+        </div>
+
+        <div class="mt-4">
+
+            <div class="flex items-center mb-3">
+
+                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                    <i class="fas fa-exclamation-circle text-red-500"></i>
+                </div>
+
+                <div class="ml-3">
+                    <h5 class="font-semibold">
+                        Keluhan Pengguna
+                    </h5>
+
+                    <p class="text-xs text-gray-400">
+                        Masukan untuk peningkatan kualitas pelayanan
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="bg-gray-50 rounded-xl border p-4">
+
+                @if($k->complaint)
+
+                    <p class="text-gray-700 leading-7">
+                        "{{ $k->complaint }}"
+                    </p>
+
+                @else
+
+                    <p class="text-green-600">
+                        <i class="fas fa-check-circle"></i>
+                        Tidak ada keluhan.
+                    </p>
+
+                @endif
+
+            </div>
+
+        </div>
+
+    </div>
+
+    @empty
+
+        <div class="bg-green-50 border border-green-200 rounded-xl p-5 text-center">
+
+            <div class="text-4xl">
+                🎉
+            </div>
+
+            <h4 class="font-bold text-green-700 mt-2">
+                Belum Ada Keluhan
+            </h4>
+
+            <p class="text-gray-500">
+                Semua pengguna puas dengan pelayanan Anda.
+            </p>
+
+        </div>
+
+    @endforelse
+
+</div>
+
     <!-- ===== TAB: JADWAL PENITIPAN ===== -->
     <div id="tab-jadwal" class="tab-content">
       <main class="px-6 md:px-10 py-6">

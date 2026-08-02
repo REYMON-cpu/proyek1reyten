@@ -232,10 +232,7 @@
           </div>
         </div>
 
-      </main>
-    </div>
-
-    <!-- ===================== KELUHAN PENGGUNA ===================== -->
+        <!-- ===================== KELUHAN PENGGUNA ===================== -->
 <div class="bg-white rounded-3xl shadow-sm p-6 mt-6">
     <div class="flex items-center justify-between mb-5">
         <div>
@@ -361,6 +358,9 @@
     @endforelse
 
 </div>
+
+      </main>
+    </div>
 
     <!-- ===== TAB: JADWAL KONSULTASI ===== -->
     <div id="tab-jadwal" class="tab-content">

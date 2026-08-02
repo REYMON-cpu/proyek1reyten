@@ -231,10 +231,8 @@
           </div>
         </div>
 
-      </main>
-    </div>
-
-    <div class="bg-white rounded-3xl shadow-sm p-6 mt-6">
+        <!-- Keluhan Pengguna -->
+        <div class="bg-white rounded-3xl shadow-sm p-6 mt-6">
 
     <div class="flex justify-between items-center mb-5">
         <div>
@@ -354,6 +352,11 @@
     @endforelse
 
 </div>
+
+      </main>
+    </div>
+
+    
 
     <!-- ===== TAB: JADWAL PENITIPAN ===== -->
     <div id="tab-jadwal" class="tab-content">

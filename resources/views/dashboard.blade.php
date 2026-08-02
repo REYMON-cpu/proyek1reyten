@@ -432,7 +432,7 @@
         class="w-full bg-[#F8FBF0] border-0 rounded-3xl py-4 px-6 focus:ring-2 focus:ring-red-300 transition-all outline-none"></textarea>
 
     <p class="text-xs text-gray-500 mt-2 px-2">
-        Keluhan ini hanya akan dikirim kepada penyedia jasa dan admin sebagai bahan evaluasi, tidak akan ditampilkan sebagai ulasan publik.
+        Keluhan ini hanya akan dikirim kepada penyedia jasa sebagai bahan evaluasi, tidak akan ditampilkan sebagai ulasan publik.
     </p>
 </div>
 
